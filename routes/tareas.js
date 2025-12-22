@@ -41,10 +41,11 @@ router.delete("/:id", auth, async (req, res) => {
 
 // PATCH toggle
 router.patch("/:id/toggle", auth, async (req, res) => {
-  const tarea = await Tarea.findOne({
-    _id: req.params.id,
-    usuario: req.usuario.id
-  });
+  const tarea = await Tarea.findById(req.params.id);
+
+  if (!tarea) {
+    return res.status(404).json({ mensaje: "Tarea no encontrada" });
+  }
 
   tarea.completada = !tarea.completada;
   tarea.fechaActualizacion = new Date();
