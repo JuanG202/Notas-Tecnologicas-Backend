@@ -70,26 +70,20 @@ router.delete("/:id", auth, async (req, res) => {
   }
 });
 
-/* =========================
-   PATCH - TOGGLE COMPLETADA
-========================= */
+
 router.patch("/:id/toggle", auth, async (req, res) => {
-  try {
-    const tarea = await Tarea.findById(req.params.id);
+  const tarea = await Tarea.findById(req.params.id);
 
-    if (!tarea) {
-      return res.status(404).json({ mensaje: "Tarea no encontrada" });
-    }
-
-    tarea.completada = !tarea.completada;
-    tarea.fechaActualizacion = new Date();
-    await tarea.save();
-
-    res.json(tarea);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ mensaje: "Error al cambiar estado" });
+  if (!tarea) {
+    return res.status(404).json({ mensaje: "Tarea no encontrada" });
   }
+
+  tarea.completada = !tarea.completada;
+  tarea.fechaActualizacion = new Date();
+  await tarea.save();
+
+  res.json(tarea);
 });
+
 
 module.exports = router;
