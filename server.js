@@ -3,15 +3,18 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 require("dotenv").config();
 const rutasTareas = require("./routes/tareas");
+const rutasAuth = require("./routes/auth");
+
+
+
 
 const app = express(); // <-- Primero se inicializa app
 
 // Middlewares
 app.use(cors());
 app.use(express.json());
-
-// Ruta
-app.use("/tareas", rutasTareas); // <-- Aquí sí debe ir
+app.use("/tareas", rutasTareas); 
+app.use("/auth", rutasAuth);
 
 // Conexión MongoDB Atlas
 mongoose.connect(process.env.MONGO_URI)
