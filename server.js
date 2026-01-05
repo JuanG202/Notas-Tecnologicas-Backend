@@ -13,6 +13,12 @@ const app = express(); // <-- Primero se inicializa app
 // Middlewares
 app.use(cors());
 app.use(express.json());
+
+// Ruta raíz (FIX)
+app.get("/", (req, res) => {
+  res.send("API funcionando correctamente 🚀");
+});
+
 app.use("/tareas", rutasTareas); 
 app.use("/auth", rutasAuth);
 
